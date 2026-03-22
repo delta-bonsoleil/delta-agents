@@ -64,6 +64,37 @@ find agents/ -name '*.md' -exec cp {} ~/.claude/agents/ \;
 
 これで「メフィーチェックして」「アテナにレビュー頼んで」のようにキャラ名で呼び出せるようになる。
 
+## 使い方
+
+### 会話中にエージェントを呼ぶ
+
+通常の Claude Code セッション内で依頼すると、`callagent.md` のマッピングに従ってエージェントが呼び出される。
+
+```
+> このコードのセキュリティ検証して    → メフィ（security-auditor）が対応
+> レビューお願い                      → アテナ（code-reviewer）が対応
+```
+
+### エージェントと直接話す
+
+`claude -a` でエージェントを指定すると、そのエージェントと1対1で会話できる。
+
+```bash
+# メフィとセキュリティについて話す
+claude -a security-auditor
+
+# アテナにコードレビューを頼む
+claude -a code-reviewer "このPRをレビューして"
+
+# クローディアと戦略の壁打ちをする
+claude -a strategic-advisor
+
+# マキナにCI/CDの相談をする
+claude -a devops-automator "GitHub Actionsのワークフローを組みたい"
+```
+
+エージェント名の一覧は `claude agents` で確認できる。
+
 ## エージェント定義フォーマット
 
 各エージェントは `.md` ファイルで定義する。詳細は [docs/writing-guide.md](docs/writing-guide.md) を参照。
